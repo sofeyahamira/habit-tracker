@@ -4,3 +4,4 @@ The layout is a calendar with each date being clickable
 - Click 1 is denote a completed habit
 - CLick 2 is to denote a skipped habit
 - CLick 3 is to undo fomatting
+Website: https://sofeyahamira.github.io/habit-tracker/
