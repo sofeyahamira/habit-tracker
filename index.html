@@ -42,6 +42,15 @@
             color: var(--white);
         }
         
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--red);
+            color: var(--white);
+            font-size: 16px;
+            cursor: pointer;
+        }
         .calendar {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
@@ -81,10 +90,13 @@
         <p>1st click: complete | 2nd click: skip | 3rd click: undo</p>
     </div>
 
+    <button id="reset">Reset Tracker</button>
+
     <!-- Script -->
     <script>
         const month = document.getElementById("month");
         const year = document.getElementById("year");
+        const  resetButton = document.getElementById("reset");
 
         // Set month and year
         const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -135,6 +147,12 @@
         for (let i = 1; i <= 31; i++) {
             createDay(i);
         }
+
+        // Reset button
+        resetButton.addEventListener("click", function() {
+            localStorage.removeItem("calendarState");
+            location.reload();
+        });
     </script>
 </body>
 </html>
