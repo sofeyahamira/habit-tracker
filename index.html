@@ -79,7 +79,6 @@
     <script>
         const month = document.getElementById("month");
         const year = document.getElementById("year");
-        const calendar = document.getElementById("calendar");
 
         // Set month and year
         const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -87,23 +86,48 @@
         month.textContent = months[currentDate.getMonth()];
         year.textContent = currentDate.getFullYear();
         
-        
-        for (let i = 1; i <= 31; i++) { // Adjust days as needed
+        // Tracking Functionality
+        const calendar = document.getElementById("calendar");
+
+        // Load saved state from localStorage
+        const savedState = JSON.parse(localStorage.getItem("calendarState")) || {};
+
+        // Function to create a day box
+        function createDay(i) {
             let day = document.createElement("div");
             day.classList.add("day");
             day.textContent = i;
-            day.dataset.state = "0"; // Default state
-            
+            day.dataset.state = savedState[i] || "0"; // Load saved state or default to 0
+
+            // Apply the correct color on load
+            updateDayColor(day);
+
             day.addEventListener("click", function() {
                 let state = parseInt(this.dataset.state);
                 state = (state + 1) % 3;
                 this.dataset.state = state;
-                
-                if (state === 0) this.style.backgroundColor = "var(--white)";
-                else if (state === 1) this.style.backgroundColor = "var(--green)";
-                else this.style.backgroundColor = "var(--red)";
+
+                updateDayColor(this);
+
+                // Save the new state in localStorage
+                savedState[i] = state;
+                localStorage.setItem("calendarState", JSON.stringify(savedState));
             });
+
             calendar.appendChild(day);
+        }
+
+        // Function to update the background color
+        function updateDayColor(day) {
+            let state = parseInt(day.dataset.state);
+            if (state === 0) day.style.backgroundColor = "var(--white)";
+            else if (state === 1) day.style.backgroundColor = "var(--green)";
+            else day.style.backgroundColor = "var(--red)";
+        }
+
+        // Create calendar days
+        for (let i = 1; i <= 31; i++) {
+            createDay(i);
         }
     </script>
 </body>
