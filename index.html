@@ -23,6 +23,7 @@
             justify-content: center;
             align-items: center;
             height: 90vh;
+            min-width: 390px;
             background-color: var(--black);
         }
 
@@ -32,7 +33,7 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            margin-bottom: 20px;
+            margin: 20px;
             gap: 10px;
             width: 100%; 
         }
@@ -40,6 +41,12 @@
         h1,p {
             color: var(--white);
         }
+
+        h1 {
+            margin: 0;
+            flex: 0; /* Ensures they don't stretch unevenly */
+        }
+
         
         .calendar {
             display: grid;
