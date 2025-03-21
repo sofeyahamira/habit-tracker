@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habit Tracker</title>
+
+    <!-- Styles -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+        
+        :root {
+            --black: #394242;
+            --white: #dce6e6;
+            --green: #66ad8d;
+            --red: #ed6161;
+        }
+        
+        body {
+            font-family: "Quicksand", sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 90vh;
+            background-color: var(--black);
+        }
+
+        .header {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-bottom: 20px;
+            gap: 20px;
+        }
+
+        h1,p {
+            color: var(--white);
+        }
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            width: 300px;
+            text-align: center;
+        }
+        .day {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid var(--white);
+            background-color: var(--white);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HTML -->
+    
+    <div class="header">
+        <h1 id="month"></h1>
+        <h1 id="year"></h1>
+    </div>
+
+    <div class="calendar" id="calendar"></div>
+
+    <br>
+    <div class="footer">
+        <p>1st click: complete | 2nd click: skip | 3rd click: undo</p>
+    </div>
+
+    <!-- Script -->
+    <script>
+        const month = document.getElementById("month");
+        const year = document.getElementById("year");
+        const calendar = document.getElementById("calendar");
+
+        // Set month and year
+        const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+        const currentDate = new Date();
+        month.textContent = months[currentDate.getMonth()];
+        year.textContent = currentDate.getFullYear();
+        
+        
+        for (let i = 1; i <= 31; i++) { // Adjust days as needed
+            let day = document.createElement("div");
+            day.classList.add("day");
+            day.textContent = i;
+            day.dataset.state = "0"; // Default state
+            
+            day.addEventListener("click", function() {
+                let state = parseInt(this.dataset.state);
+                state = (state + 1) % 3;
+                this.dataset.state = state;
+                
+                if (state === 0) this.style.backgroundColor = "var(--white)";
+                else if (state === 1) this.style.backgroundColor = "var(--green)";
+                else this.style.backgroundColor = "var(--red)";
+            });
+            calendar.appendChild(day);
+        }
+    </script>
+</body>
+</html>
