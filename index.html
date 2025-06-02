@@ -162,7 +162,7 @@
         else if (state === 2) red++;
       }
       const total = green + red;
-      const percent = total ? Math.round((green / 100) * 100) : 0;
+      const percent = total ? Math.round((green / totalDays) * 100) : 0;
       percentageText.textContent = `Completion: ${percent}%`;
     }
 
